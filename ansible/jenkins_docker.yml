@@ -1,0 +1,57 @@
+---
+- hosts: jenkins_master
+  become: yes
+  tasks:
+    - name: Update and install prerequisites
+      yum:
+        name: ['git', 'java-1.8.0-openjdk-devel', 'maven']
+        state: present
+
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start and enable Docker
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Add Jenkins repo
+      yum_repository:
+        name: jenkins
+        description: Jenkins
+        baseurl: http://pkg.jenkins.io/redhat-stable/jenkins.repo
+        gpgkey: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+        state: present
+
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+
+    - name: Start and enable Jenkins
+      service:
+        name: jenkins
+        state: started
+        enabled: true
+
+- hosts: jenkins_slave
+  become: yes
+  tasks:
+    - name: Update and install prerequisites
+      yum:
+        name: ['git', 'java-1.8.0-openjdk-devel', 'maven']
+        state: present
+
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start and enable Docker
+      service:
+        name: docker
+        state: started
+        enabled: true
