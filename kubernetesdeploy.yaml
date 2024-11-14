@@ -18,7 +18,7 @@ spec:
       - name: health-care-container
         image: naveencum98/health-care
         ports:
-        - containerPort: 8082
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
