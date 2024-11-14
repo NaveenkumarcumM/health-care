@@ -31,7 +31,6 @@ spec:
     app: health-care
 
   type: NodePort
-  ports:
-  - nodePort: 31030  
+  ports:  
     port: 8082
     targetPort: 8082
